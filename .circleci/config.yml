@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  flutter: circleci/flutter@1.1.0
+  flutter: circleci/flutter@2.0.2
 jobs:
   build-and-test:
     docker:
@@ -10,10 +10,11 @@ jobs:
       - checkout
       - flutter/install_sdk:
           version: stable
-      - flutter/install_packages
+      - flutter/install_pub
       - run:
           name: Run Flutter tests
           command: flutter test
+
 workflows:
   version: 2
   build-test:
