@@ -40,4 +40,37 @@ void main() {
       expect(bingoNumbers[centerIndex], -1);
     });
   });
+
+  test('生成されたカードの番号に重複がないことを確認', () {
+    final container = ProviderContainer();
+    final bingoGenerator = container.read(bingoGeneratorProvider.notifier);
+
+    // サイズを9に設定
+    bingoGenerator.setSize(9);
+
+    // 30回カードを生成してチェック
+    for (int i = 0; i < 30; i++) {
+      bingoGenerator.generateNewCard();
+      final numbers = container.read(bingoGeneratorProvider);
+
+      // 重複チェック
+      final uniqueNumbers = numbers.toSet();
+      expect(uniqueNumbers.length, numbers.length,
+          reason: '重複する番号があります。生成されたカード: $numbers');
+
+      // 範囲チェック
+      expect(
+          numbers.where((n) => n >= 0 && n <= 100).length, numbers.length - 1,
+          reason: '範囲外の番号があります。生成されたカード: $numbers');
+
+      // ワイルドカードチェック
+      expect(numbers.where((n) => n == -1).length, 1,
+          reason: 'ワイルドカードの数が正しくありません。生成されたカード: $numbers');
+
+      // 中央のセルがワイルドカードであることを確認
+      final centerIndex = numbers.length ~/ 2;
+      expect(numbers[centerIndex], -1,
+          reason: '中央のセルがワイルドカードではありません。生成されたカード: $numbers');
+    }
+  });
 }
