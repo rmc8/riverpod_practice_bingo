@@ -1,0 +1,21 @@
+version: 2.1
+orbs:
+  flutter: circleci/flutter@1.1.0
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/base:stable
+    executor: docker
+    steps:
+      - checkout
+      - flutter/install_sdk:
+          version: stable
+      - flutter/install_packages
+      - run:
+          name: Run Flutter tests
+          command: flutter test
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - build-and-test
