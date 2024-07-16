@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_practice_bingo/bingo.dart';
 
 void main() {
-  runApp(const BingoApp());
+  runApp(
+    ProviderScope(
+      child: const BingoApp(),
+    ),
+  );
 }
 
 class BingoApp extends StatelessWidget {
@@ -16,7 +22,10 @@ class BingoApp extends StatelessWidget {
             child: Text("Bingo Game"),
           ),
         ),
-        body: Container(),
+        body: Container(
+          alignment: Alignment.center,
+          child: BingoCard(),
+        ),
       ),
     );
   }
