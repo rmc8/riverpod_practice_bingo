@@ -31,8 +31,22 @@ class BingoGenerator extends _$BingoGenerator {
 
   void _generateNumbers() {
     final random = Random();
-    _numbers = List.generate(_size * _size, (_) => random.nextInt(101));
+    final totalCells = _size * _size;
+
+    // 1から99までの数字を使用（標準的なビンゴの範囲）
+    final availableNumbers = List.generate(99, (index) => index + 1);
+    availableNumbers.shuffle(random);
+
+    // 必要な数だけ取り出す（中央のワイルドカード分を除く）
+    _numbers = availableNumbers.take(totalCells - 1).toList();
+
+    // ワイルドカードを追加
+    _numbers.add(-1);
+
+    // 中央にワイルドカードを配置
     final centerIndex = _numbers.length ~/ 2;
+    final temp = _numbers[centerIndex];
     _numbers[centerIndex] = -1;
+    _numbers[_numbers.length - 1] = temp;
   }
 }

@@ -6,7 +6,7 @@ part of 'bingo_generator.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bingoGeneratorHash() => r'b0b0bf7e048ce35914bffd84e381c9efc9cd97b5';
+String _$bingoGeneratorHash() => r'5b64151cd434ce59339023262b8228709b599a9c';
 
 /// See also [BingoGenerator].
 @ProviderFor(BingoGenerator)
